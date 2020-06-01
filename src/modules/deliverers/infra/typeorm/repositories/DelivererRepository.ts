@@ -36,6 +36,18 @@ class DelivererRepository implements IDelivererRepository {
 
     return deliverer;
   }
+
+  public async save(deliverer: Deliverer): Promise<Deliverer> {
+    await this.ormRepository.save(deliverer);
+
+    return deliverer;
+  }
+
+  public async findById(id: string): Promise<Deliverer | undefined> {
+    const deliverer = await this.ormRepository.findOne(id);
+
+    return deliverer;
+  }
 }
 
 export default DelivererRepository;
