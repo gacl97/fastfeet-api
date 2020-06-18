@@ -8,6 +8,7 @@ import AppError from '../../errors/AppError';
 
 // Injecoes de repositorios
 import '@shared/container';
+// Conexao com DB
 import '@shared/infra/typeorm';
 
 const app = express();

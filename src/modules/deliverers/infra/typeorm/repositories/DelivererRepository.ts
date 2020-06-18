@@ -2,11 +2,11 @@ import { Repository, getRepository } from 'typeorm';
 
 import Deliverer from '@modules/deliverers/infra/typeorm/entities/Deliverer';
 
-import IDelivererRepository from '@modules/deliverers/repositories/IDelivererRepository';
+import IDeliverersRepository from '@modules/deliverers/repositories/IDeliverersRepository';
 
 import ICreateDelivererDTO from '@modules/deliverers/dtos/ICreateDelivererDTO';
 
-class DelivererRepository implements IDelivererRepository {
+class DelivererRepository implements IDeliverersRepository {
   private ormRepository: Repository<Deliverer>;
 
   constructor() {

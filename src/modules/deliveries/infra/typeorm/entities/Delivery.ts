@@ -24,11 +24,11 @@ class Delivery {
   recipient: Recipient;
 
   @Column()
-  delivererman_id: string;
+  deliveryman_id: string;
 
   @ManyToOne(() => Deliverer)
-  @JoinColumn({ name: 'delivererman_id' })
-  deliverer: Deliverer;
+  @JoinColumn({ name: 'deliveryman_id' })
+  deliveryman: Deliverer;
 
   @Column()
   product: string;

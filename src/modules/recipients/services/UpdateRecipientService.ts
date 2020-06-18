@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Recipient from '../infra/typeorm/entities/Recipient';
-import IRecipientRepository from '../repositories/IRecipientRepository';
+import IRecipientsRepository from '../repositories/IRecipientsRepository';
 
 interface IRequestDTO {
   recipient_id: string;
@@ -18,8 +18,8 @@ interface IRequestDTO {
 @injectable()
 class UpdateRecipientService {
   constructor(
-    @inject('RecipientRepository')
-    private recipientRepository: IRecipientRepository,
+    @inject('RecipientsRepository')
+    private recipientRepository: IRecipientsRepository,
   ) {}
 
   public async execute({

@@ -17,29 +17,29 @@ export default class CreateDeliveries1592446066784
           {
             name: 'recipient_id',
             type: 'uuid',
-            isNullable: false,
           },
           {
             name: 'deliveryman_id',
             type: 'uuid',
-            isNullable: false,
           },
           {
             name: 'product',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'canceled_at',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'start_date',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'end_date',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'created_at',

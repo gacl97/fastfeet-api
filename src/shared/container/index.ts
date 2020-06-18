@@ -2,18 +2,21 @@ import { container } from 'tsyringe';
 
 import '@modules/users/providers';
 
-import RecipientRepository from '@modules/recipients/infra/typeorm/repositories/RecipientRepository';
-import IRecipientRepository from '@modules/recipients/repositories/IRecipientRepository';
+import RecipientsRepository from '@modules/recipients/infra/typeorm/repositories/RecipientsRepository';
+import IRecipientsRepository from '@modules/recipients/repositories/IRecipientsRepository';
 
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 import DeliverersRepository from '@modules/deliverers/infra/typeorm/repositories/DelivererRepository';
-import IDeliverersRepository from '@modules/deliverers/repositories/IDelivererRepository';
+import IDeliverersRepository from '@modules/deliverers/repositories/IDeliverersRepository';
 
-container.registerSingleton<IRecipientRepository>(
-  'RecipientRepository',
-  RecipientRepository,
+import DeliveriesRepository from '@modules/deliveries/infra/typeorm/repositories/DeliveryRepository';
+import IDeliveriesRepository from '@modules/deliveries/repositories/IDeliveriesRepository';
+
+container.registerSingleton<IRecipientsRepository>(
+  'RecipientsRepository',
+  RecipientsRepository,
 );
 
 container.registerSingleton<IUsersRepository>(
@@ -24,4 +27,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IDeliverersRepository>(
   'DeliverersRepository',
   DeliverersRepository,
+);
+
+container.registerSingleton<IDeliveriesRepository>(
+  'DeliveriesRepository',
+  DeliveriesRepository,
 );

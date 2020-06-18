@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
-import IDelivererRepository from '../repositories/IDelivererRepository';
+import IDeliverersRepository from '../repositories/IDeliverersRepository';
 import Deliverer from '../infra/typeorm/entities/Deliverer';
 
 interface IRequestDTO {
@@ -14,7 +14,7 @@ interface IRequestDTO {
 class CreateDelivererService {
   constructor(
     @inject('DeliverersRepository')
-    private deliverersRepository: IDelivererRepository,
+    private deliverersRepository: IDeliverersRepository,
   ) {}
 
   public async execute({ name, email }: IRequestDTO): Promise<Deliverer> {
