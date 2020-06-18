@@ -48,6 +48,16 @@ class DelivererRepository implements IDelivererRepository {
 
     return deliverer;
   }
+
+  public async findAllDeliverers(): Promise<Deliverer[] | undefined> {
+    const deliverers = await this.ormRepository.find();
+
+    return deliverers;
+  }
+
+  public async deleteDeliverer(deliverer: Deliverer): Promise<void> {
+    await this.ormRepository.remove(deliverer);
+  }
 }
 
 export default DelivererRepository;
