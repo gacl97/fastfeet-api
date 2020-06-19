@@ -1,20 +1,35 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import UpdateWithdrawalOrderStart from '@modules/deliverers/services/UpdateWithdrawalOrderStart';
+import UpdateWithdrawalOrderStartService from '@modules/deliverers/services/UpdateWithdrawalOrderStartService';
+import ListAvailableWithdrawalService from '@modules/deliverers/services/ListAvailableWithdrawalService';
 
 class AvailableDeliveriesController {
   public async update(request: Request, response: Response): Promise<Response> {
     const { deliverer_id, delivery_id } = request.params;
 
-    const updateOrderWithdrawal = container.resolve(UpdateWithdrawalOrderStart);
+    const updateOrderWithdrawal = container.resolve(
+      UpdateWithdrawalOrderStartService,
+    );
 
-    await updateOrderWithdrawal.execute({
+    const delivery = await updateOrderWithdrawal.execute({
       deliverer_id,
       delivery_id,
     });
 
-    return response.status(200).json();
+    return response.json(delivery);
+  }
+
+  public async index(request: Request, response: Response): Promise<Response> {
+    const { deliverer_id } = request.params;
+
+    const listAvailableWithdrawal = container.resolve(
+      ListAvailableWithdrawalService,
+    );
+
+    const deliveries = await listAvailableWithdrawal.execute(deliverer_id);
+
+    return response.json(deliveries);
   }
 }
 

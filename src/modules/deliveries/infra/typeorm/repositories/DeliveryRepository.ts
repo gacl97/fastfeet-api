@@ -1,4 +1,4 @@
-import { getRepository, Repository, Between } from 'typeorm';
+import { getRepository, Repository, Between, Not, IsNull } from 'typeorm';
 
 import Delivery from '@modules/deliveries/infra/typeorm/entities/Delivery';
 
@@ -70,6 +70,36 @@ class DeliveryRepository implements IDeliveriesRepository {
     await this.ormRepository.save(delivery);
 
     return delivery;
+  }
+
+  public async findCompleteDeliveries(
+    deliverer_id: string,
+  ): Promise<Delivery[]> {
+    const deliveries = await this.ormRepository.find({
+      where: {
+        deliveryman_id: deliverer_id,
+        start_date: Not(IsNull()),
+        end_date: Not(IsNull()),
+        canceled_at: IsNull(),
+      },
+    });
+
+    return deliveries;
+  }
+
+  public async findAvailableDeliveries(
+    deliverer_id: string,
+  ): Promise<Delivery[]> {
+    const deliveries = await this.ormRepository.find({
+      where: {
+        deliveryman_id: deliverer_id,
+        start_date: Not(IsNull()),
+        end_date: IsNull(),
+        canceled_at: IsNull(),
+      },
+    });
+
+    return deliveries;
   }
 }
 
