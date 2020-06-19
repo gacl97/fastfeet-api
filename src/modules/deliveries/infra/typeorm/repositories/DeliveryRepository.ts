@@ -1,8 +1,11 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, Between } from 'typeorm';
+
+import Delivery from '@modules/deliveries/infra/typeorm/entities/Delivery';
 
 import IDeliveriesRepository from '@modules/deliveries/repositories/IDeliveriesRepository';
-import Delivery from '@modules/deliveries/infra/typeorm/entities/Delivery';
+
 import ICreateDeliveryDTO from '@modules/deliveries/dtos/ICreateDeliveryDTO';
+import IUpdateWithdrawalOrderStartDTO from '@modules/deliveries/dtos/IUpdateWithdrawalOrderStartDTO';
 
 class DeliveryRepository implements IDeliveriesRepository {
   private ormRepository: Repository<Delivery>;
@@ -46,6 +49,27 @@ class DeliveryRepository implements IDeliveriesRepository {
 
   public async deleteDelivery(delivery: Delivery): Promise<void> {
     await this.ormRepository.remove(delivery);
+  }
+
+  public async findAndCountWithdrawals({
+    start_hour,
+    end_hour,
+    deliverer_id,
+  }: IUpdateWithdrawalOrderStartDTO): Promise<number> {
+    const [, quantity] = await this.ormRepository.findAndCount({
+      where: {
+        deliveryman_id: deliverer_id,
+        start_date: Between(start_hour, end_hour),
+      },
+    });
+
+    return quantity;
+  }
+
+  public async save(delivery: Delivery): Promise<Delivery> {
+    await this.ormRepository.save(delivery);
+
+    return delivery;
   }
 }
 

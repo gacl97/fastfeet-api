@@ -1,14 +1,21 @@
 import { Router } from 'express';
 
 import DeliverersController from '../controllers/DeliverersController';
+import AvailableDeliveriesController from '../controllers/AvailableDeliveriesController';
 
 const deliverersController = new DeliverersController();
+const availableDeliveriesController = new AvailableDeliveriesController();
 
-const usersRoutes = Router();
+const deliverersRoutes = Router();
 
-usersRoutes.post('/', deliverersController.create);
-usersRoutes.put('/:id', deliverersController.update);
-usersRoutes.get('/', deliverersController.index);
-usersRoutes.delete('/:deliverer_id', deliverersController.delete);
+deliverersRoutes.post('/', deliverersController.create);
+deliverersRoutes.put('/:id', deliverersController.update);
+deliverersRoutes.get('/', deliverersController.index);
+deliverersRoutes.delete('/:deliverer_id', deliverersController.delete);
 
-export default usersRoutes;
+deliverersRoutes.put(
+  '/:deliverer_id/deliveries/:delivery_id',
+  availableDeliveriesController.update,
+);
+
+export default deliverersRoutes;

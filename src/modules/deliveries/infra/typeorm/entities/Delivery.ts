@@ -31,6 +31,15 @@ class Delivery {
   deliveryman: Deliverer;
 
   @Column()
+  canceled_at: Date;
+
+  @Column()
+  start_date: Date;
+
+  @Column()
+  end_date: Date;
+
+  @Column()
   product: string;
 
   @CreateDateColumn()
