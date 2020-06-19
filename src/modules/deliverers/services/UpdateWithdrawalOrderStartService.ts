@@ -67,7 +67,7 @@ class UpdateWithdrawalOrderStartService {
       },
     );
 
-    if (numberOfWithdrawals > 5) {
+    if (numberOfWithdrawals >= 5) {
       throw new AppError(
         'It is only allowed to withdraw a maximum of 5 orders.',
       );
