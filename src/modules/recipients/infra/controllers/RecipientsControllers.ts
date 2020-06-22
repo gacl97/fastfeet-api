@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import CreateRecipientService from '@modules/recipients/services/CreateRecipientService';
 import UpdateRecipientService from '@modules/recipients/services/UpdateRecipientService';
+import ListAllRecipientsService from '@modules/recipients/services/ListAllRecipientsService';
 
 class RecipientsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -57,6 +58,14 @@ class RecipientsController {
     });
 
     return response.json(recipient);
+  }
+
+  public async index(request: Request, response: Response): Promise<Response> {
+    const listAllRecipients = container.resolve(ListAllRecipientsService);
+
+    const recipients = await listAllRecipients.execute();
+
+    return response.json(recipients);
   }
 }
 export default RecipientsController;

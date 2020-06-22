@@ -8,5 +8,6 @@ const recipientsRoutes = Router();
 
 recipientsRoutes.post('/', recipientsController.create);
 recipientsRoutes.put('/:id', recipientsController.update);
+recipientsRoutes.get('/', recipientsController.index);
 
 export default recipientsRoutes;

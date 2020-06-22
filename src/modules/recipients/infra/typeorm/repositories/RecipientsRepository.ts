@@ -46,6 +46,12 @@ class RecipientRepository implements IRecipientsRepository {
 
     return recipient;
   }
+
+  public async findAllRecipients(): Promise<Recipient[]> {
+    const recipients = await this.ormRepository.find();
+
+    return recipients;
+  }
 }
 
 export default RecipientRepository;
