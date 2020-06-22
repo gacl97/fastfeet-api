@@ -14,6 +14,9 @@ import IDeliverersRepository from '@modules/deliverers/repositories/IDeliverersR
 import DeliveriesRepository from '@modules/deliveries/infra/typeorm/repositories/DeliveryRepository';
 import IDeliveriesRepository from '@modules/deliveries/repositories/IDeliveriesRepository';
 
+import DeliveryProblemsRepository from '@modules/deliveries/infra/typeorm/repositories/DeliveryProblemsRepository';
+import IDeliveryProblemsRepository from '@modules/deliveries/repositories/IDeliveryProblemsRepository';
+
 container.registerSingleton<IRecipientsRepository>(
   'RecipientsRepository',
   RecipientsRepository,
@@ -32,4 +35,9 @@ container.registerSingleton<IDeliverersRepository>(
 container.registerSingleton<IDeliveriesRepository>(
   'DeliveriesRepository',
   DeliveriesRepository,
+);
+
+container.registerSingleton<IDeliveryProblemsRepository>(
+  'DeliveryProblemsRepository',
+  DeliveryProblemsRepository,
 );
