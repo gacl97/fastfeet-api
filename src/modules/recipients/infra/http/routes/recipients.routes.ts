@@ -1,10 +1,13 @@
 import { Router } from 'express';
 
-import RecipientsController from '../controllers/RecipientsControllers';
+import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAthenticate';
+import RecipientsController from '@modules/recipients/infra/controllers/RecipientsControllers';
 
 const recipientsController = new RecipientsController();
 
 const recipientsRoutes = Router();
+
+recipientsRoutes.use(ensureAuthenticate);
 
 recipientsRoutes.post('/', recipientsController.create);
 recipientsRoutes.put('/:id', recipientsController.update);

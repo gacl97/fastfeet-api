@@ -1,0 +1,44 @@
+import { Router } from 'express';
+
+import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAthenticate';
+
+import DeliverersController from '@modules/deliverers/infra/controllers/DeliverersController';
+import AvailableDeliveriesController from '@modules/deliverers/infra/controllers/AvailableDeliveriesController';
+import CompleteDeliveriesController from '@modules/deliverers/infra/controllers/CompleteDeliveriesController';
+
+const deliverersController = new DeliverersController();
+const availableDeliveriesController = new AvailableDeliveriesController();
+const completeDeliveriesController = new CompleteDeliveriesController();
+
+const deliverersRoutes = Router();
+
+// Rotas para usuarios
+deliverersRoutes.put(
+  '/:deliverer_id/deliveries/:delivery_id',
+  availableDeliveriesController.update,
+);
+
+deliverersRoutes.get(
+  '/:deliverer_id/deliveries',
+  availableDeliveriesController.index,
+);
+
+deliverersRoutes.put(
+  '/:deliverer_id/completeDeliveries/:delivery_id',
+  completeDeliveriesController.update,
+);
+
+deliverersRoutes.get(
+  '/:deliverer_id/completeDeliveries',
+  completeDeliveriesController.index,
+);
+
+// Rotas para administradores
+deliverersRoutes.use(ensureAuthenticate);
+
+deliverersRoutes.post('/', deliverersController.create);
+deliverersRoutes.put('/:id', deliverersController.update);
+deliverersRoutes.get('/', deliverersController.index);
+deliverersRoutes.delete('/:deliverer_id', deliverersController.delete);
+
+export default deliverersRoutes;
