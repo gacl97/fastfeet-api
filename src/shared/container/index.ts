@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 
-import '@modules/users/providers';
+import '@modules/users/providers'; // Provider de Hash de senha dos usuarios
+import '@shared/container/providers'; // Todos os providers compartilhados
 
 import RecipientsRepository from '@modules/recipients/infra/typeorm/repositories/RecipientsRepository';
 import IRecipientsRepository from '@modules/recipients/repositories/IRecipientsRepository';
