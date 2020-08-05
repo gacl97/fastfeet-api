@@ -42,7 +42,7 @@ class RecipientRepository implements IRecipientsRepository {
   }
 
   public async update(recipient: Recipient): Promise<Recipient> {
-    this.ormRepository.save(recipient);
+    await this.ormRepository.save(recipient);
 
     return recipient;
   }

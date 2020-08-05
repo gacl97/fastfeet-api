@@ -15,4 +15,5 @@ export default interface IDeliveriesRepository {
   save(delivery: Delivery): Promise<Delivery>;
   findCompleteDeliveries(deliverer_id: string): Promise<Delivery[]>;
   findAvailableDeliveries(deliverer_id: string): Promise<Delivery[]>;
+  findAllDeliveriesByDeliverer(deliverer_id: string): Promise<Delivery[]>;
 }

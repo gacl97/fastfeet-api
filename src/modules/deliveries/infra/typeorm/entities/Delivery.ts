@@ -11,6 +11,8 @@ import {
 import Recipient from '@modules/recipients/infra/typeorm/entities/Recipient';
 import Deliverer from '@modules/deliverers/infra/typeorm/entities/Deliverer';
 
+import { Expose } from 'class-transformer';
+
 @Entity('deliveries')
 class Delivery {
   @PrimaryGeneratedColumn('uuid')
@@ -29,6 +31,19 @@ class Delivery {
   @ManyToOne(() => Deliverer)
   @JoinColumn({ name: 'deliveryman_id' })
   deliveryman: Deliverer;
+
+  @Column()
+  signature: string;
+
+  @Expose({ name: 'signature_url' })
+  getSignature_url(): string | null {
+    return this.signature
+      ? `http://localhost:3333/files/${this.signature}`
+      : null;
+  }
+
+  @Column()
+  status: string;
 
   @Column()
   canceled_at: Date;

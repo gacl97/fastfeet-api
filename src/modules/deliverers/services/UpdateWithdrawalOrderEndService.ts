@@ -53,6 +53,7 @@ class UpdateWithdrawalOrderEndService {
 
     Object.assign(delivery, {
       end_date: current_date,
+      status: 'delivered',
     });
 
     await this.deliveryRepository.save(delivery);

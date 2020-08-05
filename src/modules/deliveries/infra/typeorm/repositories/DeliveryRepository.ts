@@ -18,11 +18,13 @@ class DeliveryRepository implements IDeliveriesRepository {
     product,
     deliveryman_id,
     recipient_id,
+    status,
   }: ICreateDeliveryDTO): Promise<Delivery> {
     const delivery = this.ormRepository.create({
       product,
       deliveryman_id,
       recipient_id,
+      status,
     });
     await this.ormRepository.save(delivery);
 
@@ -30,7 +32,9 @@ class DeliveryRepository implements IDeliveriesRepository {
   }
 
   public async findAllDeliveries(): Promise<Delivery[]> {
-    const deliveries = await this.ormRepository.find();
+    const deliveries = await this.ormRepository.find({
+      relations: ['recipient', 'deliveryman'],
+    });
 
     return deliveries;
   }
@@ -93,9 +97,21 @@ class DeliveryRepository implements IDeliveriesRepository {
     const deliveries = await this.ormRepository.find({
       where: {
         deliveryman_id: deliverer_id,
-        start_date: Not(IsNull()),
+        start_date: IsNull(),
         end_date: IsNull(),
         canceled_at: IsNull(),
+      },
+    });
+
+    return deliveries;
+  }
+
+  public async findAllDeliveriesByDeliverer(
+    deliverer_id: string,
+  ): Promise<Delivery[]> {
+    const deliveries = await this.ormRepository.find({
+      where: {
+        deliveryman_id: deliverer_id,
       },
     });
 

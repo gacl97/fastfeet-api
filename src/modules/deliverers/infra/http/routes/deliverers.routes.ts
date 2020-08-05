@@ -45,6 +45,7 @@ deliverersRoutes.use(ensureAuthenticate);
 deliverersRoutes.post('/', deliverersController.create);
 deliverersRoutes.put('/:id', deliverersController.update);
 deliverersRoutes.get('/', deliverersController.index);
+deliverersRoutes.get('/:deliverer_id', deliverersController.show);
 deliverersRoutes.delete('/:deliverer_id', deliverersController.delete);
 deliverersRoutes.patch(
   '/:deliverer_id/avatar',

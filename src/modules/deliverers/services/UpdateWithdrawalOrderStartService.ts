@@ -52,8 +52,8 @@ class UpdateWithdrawalOrderStartService {
 
     const current_date = new Date();
 
-    const start_hour = setSeconds(setMinutes(setHours(new Date(), 5), 0), 0);
-    const end_hour = setSeconds(setMinutes(setHours(new Date(), 15), 0), 0);
+    const start_hour = setSeconds(setMinutes(setHours(new Date(), 8), 0), 0);
+    const end_hour = setSeconds(setMinutes(setHours(new Date(), 18), 0), 0);
 
     if (isBefore(current_date, start_hour) || isAfter(current_date, end_hour)) {
       throw new AppError('Withdrawals can only be made between 8am and 18pm');
@@ -75,6 +75,7 @@ class UpdateWithdrawalOrderStartService {
 
     Object.assign(delivery, {
       start_date: current_date,
+      status: 'withdrawal',
     });
 
     await this.deliveryRepository.save(delivery);

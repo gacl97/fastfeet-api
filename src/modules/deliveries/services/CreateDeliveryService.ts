@@ -47,6 +47,7 @@ class CreateDeliveryService {
       product,
       recipient_id,
       deliveryman_id,
+      status: 'pending',
     });
 
     return delivery;

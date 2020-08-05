@@ -36,6 +36,7 @@ class DeleteDeliveryProblemService {
 
     Object.assign(delivery, {
       canceled_at: canceledHour,
+      status: 'canceled',
     });
 
     await this.deliveriesRepository.save(delivery);
