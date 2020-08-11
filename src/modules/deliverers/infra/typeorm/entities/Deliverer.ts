@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Expose } from 'class-transformer';
+import { Expose, Exclude } from 'class-transformer';
 
 @Entity('deliverers')
 class Deliverer {
@@ -21,6 +21,10 @@ class Deliverer {
 
   @Column()
   avatar: string;
+
+  @Column()
+  @Exclude()
+  password: string;
 
   @Expose({ name: 'avatar_url' })
   getAvatar_url(): string | null {

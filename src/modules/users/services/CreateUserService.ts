@@ -4,7 +4,7 @@ import User from '@modules/users/infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
+import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 
 interface IRequestDTO {
   name: string;

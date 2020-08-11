@@ -6,6 +6,7 @@ import deliverersRouter from '@modules/deliverers/infra/http/routes/deliverers.r
 import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
 import deliveriesRouter from '@modules/deliveries/infra/http/routes/deliveries.routes';
 import deliveryProblemsRouter from '@modules/deliveries/infra/http/routes/deliveryProblems.routes';
+import verifyTokenRouter from './verifyToken.routes';
 
 const routes = Router();
 
@@ -15,5 +16,7 @@ routes.use('/users', usersRouter);
 routes.use('/deliverers', deliverersRouter);
 routes.use('/deliveries', deliveriesRouter);
 routes.use('/delivery', deliveryProblemsRouter);
+
+routes.use('/api/account', verifyTokenRouter);
 
 export default routes;

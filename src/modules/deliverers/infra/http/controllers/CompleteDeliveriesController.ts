@@ -6,7 +6,8 @@ import ListCompleteWithdrawalService from '@modules/deliverers/services/ListComp
 
 class CompleteDeliveriesController {
   public async update(request: Request, response: Response): Promise<Response> {
-    const { deliverer_id, delivery_id } = request.params;
+    const deliverer_id = request.deliverer.id;
+    const { delivery_id } = request.params;
 
     const updateWithdrawalOrderEnd = container.resolve(
       UpdateWithdrawalOrderEndService,
@@ -21,7 +22,7 @@ class CompleteDeliveriesController {
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
-    const { deliverer_id } = request.params;
+    const deliverer_id = request.deliverer.id;
 
     const listCompleteWithdrawal = container.resolve(
       ListCompleteWithdrawalService,

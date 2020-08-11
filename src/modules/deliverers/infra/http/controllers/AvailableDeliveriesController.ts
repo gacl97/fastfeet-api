@@ -6,7 +6,8 @@ import ListAvailableWithdrawalService from '@modules/deliverers/services/ListAva
 
 class AvailableDeliveriesController {
   public async update(request: Request, response: Response): Promise<Response> {
-    const { deliverer_id, delivery_id } = request.params;
+    const deliverer_id = request.deliverer.id;
+    const { delivery_id } = request.params;
 
     const updateOrderWithdrawal = container.resolve(
       UpdateWithdrawalOrderStartService,
@@ -21,7 +22,7 @@ class AvailableDeliveriesController {
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
-    const { deliverer_id } = request.params;
+    const deliverer_id = request.deliverer.id;
 
     const listAvailableWithdrawal = container.resolve(
       ListAvailableWithdrawalService,

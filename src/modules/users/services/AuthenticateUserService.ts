@@ -4,19 +4,23 @@ import { sign } from 'jsonwebtoken';
 import auth from '@config/auth';
 
 import AppError from '@shared/errors/AppError';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 
+import Deliverer from '@modules/deliverers/infra/typeorm/entities/Deliverer';
 import IUsersRepository from '../repositories/IUsersRepository';
+import IDeliverersRepository from '../../deliverers/repositories/IDeliverersRepository';
 import User from '../infra/typeorm/entities/User';
 
 interface IRequestDTO {
   email: string;
   password: string;
+  role: 'admin' | 'deliverer';
 }
 
 interface IAuthenticateResponse {
-  user: User;
+  user: User | Deliverer;
   token: string;
+  isAdmin: boolean;
 }
 
 @injectable()
@@ -25,6 +29,9 @@ class AuthenticateUserService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
+    @inject('DeliverersRepository')
+    private deliverersRepository: IDeliverersRepository,
+
     @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
@@ -32,8 +39,17 @@ class AuthenticateUserService {
   public async execute({
     email,
     password,
+    role,
   }: IRequestDTO): Promise<IAuthenticateResponse> {
-    const user = await this.usersRepository.findByEmail(email);
+    let user;
+
+    if (role === 'admin') {
+      user = await this.usersRepository.findByEmail(email);
+    }
+
+    if (role === 'deliverer') {
+      user = await this.deliverersRepository.findByEmail(email);
+    }
 
     if (!user) {
       throw new AppError('User not found', 404);
@@ -50,14 +66,21 @@ class AuthenticateUserService {
 
     const { secret, expiresIn } = auth;
 
-    const token = sign({}, secret, {
-      subject: user.id,
-      expiresIn,
-    });
+    const token = sign(
+      {
+        role,
+      },
+      secret,
+      {
+        subject: user.id,
+        expiresIn,
+      },
+    );
 
     return {
       user,
       token,
+      isAdmin: role === 'admin',
     };
   }
 }

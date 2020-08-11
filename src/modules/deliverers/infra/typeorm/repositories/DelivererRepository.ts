@@ -16,10 +16,12 @@ class DelivererRepository implements IDeliverersRepository {
   public async create({
     name,
     email,
+    password,
   }: ICreateDelivererDTO): Promise<Deliverer> {
     const deliverer = this.ormRepository.create({
       name,
       email,
+      password,
     });
 
     await this.ormRepository.save(deliverer);

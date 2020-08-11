@@ -26,6 +26,11 @@ export default class CreateDeliverers1590980381153
             isUnique: true,
           },
           {
+            name: 'password',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

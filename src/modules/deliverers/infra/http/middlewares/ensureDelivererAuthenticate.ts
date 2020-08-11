@@ -12,7 +12,7 @@ interface ITokenPayload {
   role: 'admin' | 'deliverer';
 }
 
-export default function (
+function ensureDelivererAuthenticate(
   request: Request,
   response: Response,
   next: NextFunction,
@@ -32,11 +32,11 @@ export default function (
 
     const { sub, role } = decoded as ITokenPayload;
 
-    if (role !== 'admin') {
-      throw new AppError('User has no permition', 401);
+    if (role !== 'deliverer') {
+      throw new Error();
     }
 
-    request.user = {
+    request.deliverer = {
       id: sub,
     };
 
@@ -45,3 +45,5 @@ export default function (
     throw new AppError('Invalid JWT token', 401);
   }
 }
+
+export default ensureDelivererAuthenticate;

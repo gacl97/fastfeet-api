@@ -4,11 +4,12 @@ import multer from 'multer';
 import uploadConfig from '@config/upload';
 
 import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAthenticate';
+import ensureDelivererAuthenticate from '@modules/deliverers/infra/http/middlewares/ensureDelivererAuthenticate';
 
-import DeliverersController from '@modules/deliverers/infra/controllers/DeliverersController';
-import AvailableDeliveriesController from '@modules/deliverers/infra/controllers/AvailableDeliveriesController';
-import CompleteDeliveriesController from '@modules/deliverers/infra/controllers/CompleteDeliveriesController';
-import DelivererAvatarController from '@modules/deliverers/infra/controllers/DelivererAvatarController';
+import DeliverersController from '@modules/deliverers/infra/http/controllers/DeliverersController';
+import AvailableDeliveriesController from '@modules/deliverers/infra/http/controllers/AvailableDeliveriesController';
+import CompleteDeliveriesController from '@modules/deliverers/infra/http/controllers/CompleteDeliveriesController';
+import DelivererAvatarController from '@modules/deliverers/infra/http/controllers/DelivererAvatarController';
 
 const deliverersController = new DeliverersController();
 const availableDeliveriesController = new AvailableDeliveriesController();
@@ -20,22 +21,26 @@ const upload = multer(uploadConfig);
 
 // Rotas para usuarios
 deliverersRoutes.put(
-  '/:deliverer_id/deliveries/:delivery_id',
+  '/deliveries/:delivery_id',
+  ensureDelivererAuthenticate,
   availableDeliveriesController.update,
 );
 
 deliverersRoutes.get(
-  '/:deliverer_id/deliveries',
+  '/deliveries',
+  ensureDelivererAuthenticate,
   availableDeliveriesController.index,
 );
 
 deliverersRoutes.put(
-  '/:deliverer_id/completeDeliveries/:delivery_id',
+  '/completeDeliveries/:delivery_id',
+  ensureDelivererAuthenticate,
   completeDeliveriesController.update,
 );
 
 deliverersRoutes.get(
-  '/:deliverer_id/completeDeliveries',
+  '/completeDeliveries',
+  ensureDelivererAuthenticate,
   completeDeliveriesController.index,
 );
 
