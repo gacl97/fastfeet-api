@@ -86,6 +86,7 @@ class DeliveryRepository implements IDeliveriesRepository {
         end_date: Not(IsNull()),
         canceled_at: IsNull(),
       },
+      relations: ['recipient', 'deliveryman'],
     });
 
     return deliveries;
@@ -101,6 +102,7 @@ class DeliveryRepository implements IDeliveriesRepository {
         end_date: IsNull(),
         canceled_at: IsNull(),
       },
+      relations: ['recipient'],
     });
 
     return deliveries;

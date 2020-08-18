@@ -20,7 +20,7 @@ verifyToken.get(
 
     try {
       verify(token, secret);
-      return response.json({ success: true });
+      return response.json({ success: 'Token is valid' });
     } catch {
       return response.json({ error: 'Token invalid' });
     }

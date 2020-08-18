@@ -56,6 +56,10 @@ class DeliveriesController {
 
     return response.status(200).json();
   }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { delivery_id } = request.params;
+  }
 }
 
 export default DeliveriesController;
