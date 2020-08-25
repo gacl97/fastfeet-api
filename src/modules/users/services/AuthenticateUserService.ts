@@ -64,7 +64,7 @@ class AuthenticateUserService {
       throw new AppError('Email or password is wrong, please try again');
     }
 
-    const { secret, expiresIn } = auth;
+    const { secret, expiresIn } = auth.jwt;
 
     const token = sign(
       {

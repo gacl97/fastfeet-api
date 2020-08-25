@@ -25,7 +25,7 @@ export default function (
 
   const [, token] = authHeader.split(' ');
 
-  const { secret } = authConfig;
+  const { secret } = authConfig.jwt;
 
   try {
     const decoded = verify(token, secret);

@@ -40,7 +40,12 @@ class DeliveryRepository implements IDeliveriesRepository {
   }
 
   public async findById(delivery_id: string): Promise<Delivery | undefined> {
-    const delivery = await this.ormRepository.findOne(delivery_id);
+    const delivery = await this.ormRepository.findOne({
+      where: {
+        id: delivery_id,
+      },
+      relations: ['recipient'],
+    });
 
     return delivery;
   }

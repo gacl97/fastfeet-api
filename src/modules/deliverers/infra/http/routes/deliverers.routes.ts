@@ -32,6 +32,12 @@ deliverersRoutes.get(
   availableDeliveriesController.index,
 );
 
+deliverersRoutes.get(
+  '/delivery/:delivery_id',
+  ensureDelivererAuthenticate,
+  availableDeliveriesController.show,
+);
+
 deliverersRoutes.put(
   '/completeDeliveries/:delivery_id',
   ensureDelivererAuthenticate,
