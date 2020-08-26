@@ -124,6 +124,22 @@ class DeliveryRepository implements IDeliveriesRepository {
 
     return deliveries;
   }
+
+  public async findAllPendingDeliveries(
+    deliverer_id: string,
+  ): Promise<Delivery[]> {
+    const deliveries = await this.ormRepository.find({
+      where: {
+        deliveryman_id: deliverer_id,
+        start_date: Not(IsNull()),
+        end_date: IsNull(),
+        canceled_at: IsNull(),
+      },
+      relations: ['recipient'],
+    });
+
+    return deliveries;
+  }
 }
 
 export default DeliveryRepository;

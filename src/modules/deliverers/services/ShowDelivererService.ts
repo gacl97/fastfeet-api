@@ -55,9 +55,9 @@ class ShowDelivererService {
       delivery => !!delivery.canceled_at,
     ).length;
 
-    const deliveries_to_made = deliveries.filter(
-      delivery => !!delivery.canceled_at && !!delivery.start_date,
-    ).length;
+    const deliveries_to_made = deliveries.filter(delivery => {
+      return !delivery.canceled_at && !delivery.end_date;
+    }).length;
 
     const total_problem_deliveries = deliveryProblems.length;
 

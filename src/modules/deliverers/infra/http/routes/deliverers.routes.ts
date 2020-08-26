@@ -8,11 +8,13 @@ import ensureDelivererAuthenticate from '@modules/deliverers/infra/http/middlewa
 
 import DeliverersController from '@modules/deliverers/infra/http/controllers/DeliverersController';
 import AvailableDeliveriesController from '@modules/deliverers/infra/http/controllers/AvailableDeliveriesController';
+import PendingDeliveriesController from '@modules/deliverers/infra/http/controllers/PendingDeliveriesController';
 import CompleteDeliveriesController from '@modules/deliverers/infra/http/controllers/CompleteDeliveriesController';
 import DelivererAvatarController from '@modules/deliverers/infra/http/controllers/DelivererAvatarController';
 
 const deliverersController = new DeliverersController();
 const availableDeliveriesController = new AvailableDeliveriesController();
+const pendingDeliveriesController = new PendingDeliveriesController();
 const completeDeliveriesController = new CompleteDeliveriesController();
 const delivererAvatarController = new DelivererAvatarController();
 
@@ -21,7 +23,7 @@ const upload = multer(uploadConfig);
 
 // Rotas para usuarios
 deliverersRoutes.put(
-  '/deliveries/:delivery_id',
+  '/delivery/:delivery_id',
   ensureDelivererAuthenticate,
   availableDeliveriesController.update,
 );
@@ -30,6 +32,12 @@ deliverersRoutes.get(
   '/deliveries',
   ensureDelivererAuthenticate,
   availableDeliveriesController.index,
+);
+
+deliverersRoutes.get(
+  '/pending',
+  ensureDelivererAuthenticate,
+  pendingDeliveriesController.index,
 );
 
 deliverersRoutes.get(

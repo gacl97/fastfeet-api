@@ -16,4 +16,5 @@ export default interface IDeliveriesRepository {
   findCompleteDeliveries(deliverer_id: string): Promise<Delivery[]>;
   findAvailableDeliveries(deliverer_id: string): Promise<Delivery[]>;
   findAllDeliveriesByDeliverer(deliverer_id: string): Promise<Delivery[]>;
+  findAllPendingDeliveries(deliverer_id: string): Promise<Delivery[]>;
 }
