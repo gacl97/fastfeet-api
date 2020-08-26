@@ -11,6 +11,8 @@ interface IRequestDTO {
 }
 
 interface IResponseDTO {
+  id: string;
+  name: string;
   total_deliveries: number;
   total_deliveries_made: number;
   canceled_deliveries: number;
@@ -62,6 +64,8 @@ class ShowDelivererService {
     const total_problem_deliveries = deliveryProblems.length;
 
     return {
+      id: deliverer.id,
+      name: deliverer.name,
       total_deliveries,
       total_deliveries_made,
       canceled_deliveries,

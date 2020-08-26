@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import DeliveryProblemsController from '@modules/deliveries/infra/controllers/DeliveryProblemsController';
-import ensureAthenticate from '@modules/users/infra/http/middlewares/ensureAthenticate';
+import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAuthenticate';
 import ensureDelivererAuthenticate from '@modules/deliverers/infra/http/middlewares/ensureDelivererAuthenticate';
 
 const deliveryProblemsController = new DeliveryProblemsController();
@@ -23,7 +23,7 @@ deliveryProblemsRoutes.get(
 );
 
 // Daqui pra baixo somente rotas autenticadas para adminstrador
-deliveryProblemsRoutes.use(ensureAthenticate);
+deliveryProblemsRoutes.use(ensureAuthenticate);
 
 // Rota para administrador
 deliveryProblemsRoutes.get('/problems', deliveryProblemsController.index);

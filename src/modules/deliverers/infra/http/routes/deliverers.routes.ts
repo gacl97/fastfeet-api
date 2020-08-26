@@ -3,7 +3,7 @@ import multer from 'multer';
 
 import uploadConfig from '@config/upload';
 
-import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAthenticate';
+import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAuthenticate';
 import ensureDelivererAuthenticate from '@modules/deliverers/infra/http/middlewares/ensureDelivererAuthenticate';
 
 import DeliverersController from '@modules/deliverers/infra/http/controllers/DeliverersController';
@@ -58,13 +58,26 @@ deliverersRoutes.get(
   completeDeliveriesController.index,
 );
 
+deliverersRoutes.get(
+  '/:deliverer_id',
+  ensureDelivererAuthenticate,
+  deliverersController.show,
+);
+
+deliverersRoutes.patch(
+  '/:deliverer_id/avatar',
+  upload.single('avatar'),
+  ensureDelivererAuthenticate,
+  delivererAvatarController.update,
+);
+
 // Rotas para administradores
 deliverersRoutes.use(ensureAuthenticate);
 
 deliverersRoutes.post('/', deliverersController.create);
 deliverersRoutes.put('/:id', deliverersController.update);
-deliverersRoutes.get('/', deliverersController.index);
 deliverersRoutes.get('/:deliverer_id', deliverersController.show);
+deliverersRoutes.get('/', deliverersController.index);
 deliverersRoutes.delete('/:deliverer_id', deliverersController.delete);
 deliverersRoutes.patch(
   '/:deliverer_id/avatar',

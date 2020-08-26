@@ -3,7 +3,7 @@ import multer from 'multer';
 
 import uploadConfig from '@config/upload';
 
-import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAthenticate';
+import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAuthenticate';
 
 import DeliveriesController from '@modules/deliveries/infra/controllers/DeliveriesController';
 import DeliverySignatureController from '@modules/deliveries/infra/controllers/DeliverySignatureController';

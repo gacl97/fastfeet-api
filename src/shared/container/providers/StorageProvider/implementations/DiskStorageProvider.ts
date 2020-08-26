@@ -6,6 +6,10 @@ import IDiskStorageProvider from '../models/IDiskStorageProvider';
 
 class DiskStorageProvider implements IDiskStorageProvider {
   public async saveFile(file: string): Promise<string> {
+    // Verificar existencia de diretorio
+    if (!fs.existsSync(uploadConfig.uploadsFolder)) {
+      fs.mkdirSync(uploadConfig.uploadsFolder);
+    }
     // Funcao para mover arquivo
     await fs.promises.rename(
       path.resolve(uploadConfig.tmpFolder, file),

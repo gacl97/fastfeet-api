@@ -60,22 +60,8 @@ export default class DeliverersController {
 
     const showDeliverer = container.resolve(ShowDelivererService);
 
-    const {
-      canceled_deliveries,
-      created_at,
-      deliveries_to_made,
-      total_deliveries,
-      total_deliveries_made,
-      total_problem_deliveries,
-    } = await showDeliverer.execute({ deliverer_id });
+    const userData = await showDeliverer.execute({ deliverer_id });
 
-    return response.json({
-      canceled_deliveries,
-      created_at,
-      deliveries_to_made,
-      total_deliveries,
-      total_deliveries_made,
-      total_problem_deliveries,
-    });
+    return response.json(userData);
   }
 }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAthenticate';
+import ensureAuthenticate from '@modules/users/infra/http/middlewares/ensureAuthenticate';
 import RecipientsController from '@modules/recipients/infra/controllers/RecipientsControllers';
 
 const recipientsController = new RecipientsController();
