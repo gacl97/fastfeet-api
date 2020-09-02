@@ -37,6 +37,10 @@ class UpdateDeliverySignatureService {
       );
     }
 
+    if (delivery.end_date) {
+      throw new AppError('This delivery is already delivered');
+    }
+
     if (delivery.canceled_at) {
       throw new AppError('Canceled deliveries cannot update signature');
     }
